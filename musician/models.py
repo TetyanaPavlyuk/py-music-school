@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework.exceptions import ValidationError
 
 
 class Musician(models.Model):
@@ -13,8 +14,8 @@ class Musician(models.Model):
         return self.age >= 21
 
     def clean(self):
-        if self.age < 14:
-            raise ValueError({
+        if self.age is not None and self.age < 14:
+            raise ValidationError({
                 "age": f"Age must be at least 14 years old, not {self.age}"
             })
 

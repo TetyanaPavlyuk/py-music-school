@@ -15,3 +15,8 @@ class MusicianSerializer(serializers.ModelSerializer):
             "date_of_applying",
             "is_adult",
         ]
+
+    def validate(self, attrs):
+        instance = Musician(**attrs)
+        instance.clean()
+        return attrs
